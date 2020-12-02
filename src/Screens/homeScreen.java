@@ -145,20 +145,25 @@ public class homeScreen
 		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
 		
-		User loginUser = logInScreen.getUserInstance();
-		UserRoleTable userRoleTable = new UserRoleTable();
-		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
-			accountManagement.setVisible(false);
-			statisticScreen.setVisible(false);
-		}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2){
-			
-			accountManagement.setVisible(false);
-		}
-		
-		
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock,  deleteStock,statisticScreen,accountManagement);
-
-		navigationButton.setOnAction(e->{
+		//If the user is clerk role, who cann't visit accountManager functionality
+				User loginUser=logInScreen.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					statisticScreen.setVisible(false);
+					accountManagement.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2) {
+					accountManagement.setVisible(false);
+				}
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock,statisticScreen, accountManagement);
+				
+				
+				
+				
+				
+			navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);
 	    });
 	    

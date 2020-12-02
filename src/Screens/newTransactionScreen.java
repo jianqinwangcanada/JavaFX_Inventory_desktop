@@ -95,73 +95,75 @@ public class newTransactionScreen
 		Button statisticScreen = new Button("Statistic Screen");
 
 		//If the user is clerk role, who cann't visit accountManager functionality
+				User loginUser=logInScreen.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					statisticScreen.setVisible(false);
+					accountManagement.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2) {
+					accountManagement.setVisible(false);
+				}
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock,statisticScreen, accountManagement);
+				
+				
+				
+				
+		navigationButton.setOnAction(e->{
+			root.setLeft(menu);
+		});
 
-		logInScreen login=new logInScreen();
-		User loginUser=login.getUserInstance();
-		UserRoleTable userRoleTable=new UserRoleTable();
-		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
-			accountManagement.setVisible(false);
-			statisticScreen.setVisible(false);
-		}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2){
-			
-			accountManagement.setVisible(false);
-		}
-		
-		
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock,  deleteStock,statisticScreen,accountManagement);
-		
-	    navigationButton.setOnAction(e->{
-	    	root.setLeft(menu);
-	    });
-	    
-	    newTransaction.setOnAction(e->{
-	    	new newTransactionScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    completedTransaction.setOnAction(e->{
+		newTransaction.setOnAction(e->{
+			new newTransactionScreen();
+			transactionStage.close();
+		});
 
-	   new completedTranScreen();
-	    transactionStage.close();
+		completedTransaction.setOnAction(e->{
 
-
-	    });
-	    
-	    addStock.setOnAction(e->{
-	    	new addStockScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    updateStock.setOnAction(e->{
-	    	new updateStockScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    accountManagement.setOnAction(e->{
-	    	new accountManagementScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    statisticScreen.setOnAction(e->{
-	    	new statisticScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    deleteStock.setOnAction(e->{
-	    	new deleteStockScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    
-	    /****************************************************************************************************
-	     * 	   Navigation Item 
-	     **************************************************************************************************/
-	    
+			new completedTranScreen();
+			transactionStage.close();
 
 
-	    currentranTab newTransactionPane=new currentranTab();
-	    
-	    newTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+		});
+
+		addStock.setOnAction(e->{
+			new addStockScreen();
+			transactionStage.close();
+		});
+
+		updateStock.setOnAction(e->{
+			new updateStockScreen();
+			transactionStage.close();
+		});
+
+		accountManagement.setOnAction(e->{
+			new accountManagementScreen();
+			transactionStage.close();
+		});
+
+		statisticScreen.setOnAction(e->{
+			new statisticScreen();
+			transactionStage.close();
+		});
+
+		deleteStock.setOnAction(e->{
+			new deleteStockScreen();
+			transactionStage.close();
+		});
+
+
+		/****************************************************************************************************
+		 * 	   Navigation Item 
+		 **************************************************************************************************/
+
+
+
+		currentranTab newTransactionPane=new currentranTab();
+
+		newTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		{
 
 			@Override
 			public void handle(MouseEvent event) {
